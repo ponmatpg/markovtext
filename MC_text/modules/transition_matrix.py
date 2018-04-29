@@ -1,14 +1,36 @@
 
 
 class text_transition_matrix(object):
-	def __init__(self, sentence):
+	"""
+	dynamic class to handle 
+
+	"""
+	def __init__(self, sentence=None):
+		"""
+		constructor
+
+		:param sentence: Text with which to seed the transition matrix.
+		Assumed to be a single sentence
+		:type sentence: str
+
+		"""
 		self.word_list = ['.']
 		self.prob_dict = {'.': [0, 1, 1]}
 
-		self.add_sentence(sentence)
+		if sentence is not None:
+			self.add_sentence(sentence)
 
 
 	def add_sentence(self, sentence):
+		"""
+		method to add a new sentence to the aggregate text corpus of the transition matrix
+
+
+		:param sentence: sentence to add to the transition matrix.
+		Assumed to be a single sentence
+		:type sentence: str
+
+		"""
 		sentence = sentence.replace('.', '')
 		words = sentence.split(' ') + ["."]
 
@@ -49,6 +71,19 @@ class text_transition_matrix(object):
 				self.prob_dict[words[i+1]] = [len(self.word_list)-1, 0] + [0] * len(self.word_list)
 
 	def get_probs(self, word):
+		"""
+		
+		:param word: some word in the text corpus (else returns 0)
+		:type word: str
+
+		:return: mapping associating every other word in the text corpus to the probability that it will follow 'word'
+		e.g. for word = 'hello'
+		returns {'there': 0.5, 'world': 0.5}
+		to indicate that the probability of world following hello is 50% amd there following hello is 50% 
+
+		:rtype: dict
+
+		"""
 		if word not in self.word_list:
 			return [0] * len(self.word_list)
 		else:

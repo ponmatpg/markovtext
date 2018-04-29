@@ -26,6 +26,12 @@ class mc_model(object):
 				self.start_words_dict[sent[0]] = 1
 
 	def add_text(self, text):
+		"""
+
+		:param text:  text to be added to the model 
+		:type text: str
+
+		"""
 		sentences = text.split('.')
 
 		for sent in sentences:
@@ -40,6 +46,13 @@ class mc_model(object):
 			(self.tm).add_sentence(sentences[i])
 
 	def generate_text(self, sentences=1):
+		"""
+		
+		:param sentences: number of sentences of text to generate 
+		:type sentences: int
+
+		"""
+
 		import numpy.random as npr
 		text = []
 
